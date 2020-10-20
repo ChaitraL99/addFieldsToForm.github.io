@@ -47,7 +47,7 @@ function formHandler() {
             break;
     }
     
-    document.getElementById("result").innerHTML = `<h3>Result : ${displayText}</h3>`;
+    document.getElementById("result").innerHTML = `<h3>Average : ${average}, ${displayText}</h3>`;
     document.getElementById("result").style.color = color;
 }
 
