@@ -62,7 +62,7 @@ function formHandler(event) {
             break;
     }
     
-    document.getElementById("result").innerHTML = `<h3>Average : ${average}, ${displayText}</h3>`;
+    document.getElementById("result").innerHTML = `<h3>Average : ${average.toFixed(2)}, ${displayText}</h3>`;
     document.getElementById("result").style.color = color;
 }
 
