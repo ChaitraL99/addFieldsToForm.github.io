@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Simple Form</title>
+        <meta charset = "UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css" type="text/css">
@@ -9,20 +10,20 @@
     <body>
         <div class="container">
 
-            <div id="numberOfRows"><h3>Number of Rows : 1</h3></div><br>
+            <div id="numberOfRows"><h4>Number of Rows : 1</h4></div><br>
 
-            <form id="inputForm">
+            <form id="inputForm" name="inputForm">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter name" id="name">
+                    <input type="text" class="form-control" placeholder="Enter name" id="name" onkeyup="checkform()" />
                 </div>
                 <div class="form-group">
                     <label for="age">Age</label>
-                    <input type="text" class="form-control age" placeholder="Enter age" >
+                    <input type="text" class="form-control age" placeholder="Enter age" onkeyup="checkform()" />
                 </div>
                 <div id="extraFields"></div>
                 <button class="btn btn-primary" type="button" onclick="addFields()">Add Fields</button>
-                <button type="button" class="btn btn-primary" onclick="formHandler()">Submit</button>
+                <input type="submit" class="btn btn-primary" onclick="formHandler(event)" id="submitbutton" value="Submit" disabled/>
             </form>
 
             <div id="result"></div>
@@ -30,7 +31,9 @@
         </div>
 
           <script src="index.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     </body>
 </html>
+
