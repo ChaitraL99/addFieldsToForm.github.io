@@ -1,81 +1,86 @@
+// This function disables the submit until all the form inputs are filled
 function checkform() {
-    var f = document.forms["inputForm"].getElementsByTagName("input");
+    var formElements = document.forms["inputForm"].getElementsByTagName("input");
     var cansubmit = true;
-
-    for (var i = 0; i < f.length; i++) {
-        console.log(f[i].value);
-        if (f[i].value.length === 0)
+    for (var i = 0; i < formElements.length; i++) {
+        if (formElements[i].value.length === 0)
             cansubmit = false;
     }
-
     document.getElementById('submitbutton').disabled = !cansubmit;
 }
 
-function formHandler(event) {
 
+// This function is used to add extra fields
+var counter = 1;
+function addFields() {
+    var newFields = `<h4 id="person">Person : ${counter + 1}</h4><div class="form-group"><label for="name">Name</label><br><input type="text" class="form-control" placeholder="Enter name" id="name" onkeyup="checkform()" /></div><div class="form-group"><label for="age">Age</label><br><input type="text" class="form-control age" placeholder="Enter age" onkeyup="checkform()" ><span id="${counter + 1}"></span></div><br>`;
+    var newFieldDiv = document.createElement('div');
+    newFieldDiv.innerHTML = newFields;
+    document.getElementById("extraFields").appendChild(newFieldDiv);
+    counter++;
+}
+
+var categories = {"Minor":0, "Adults":0, "Middle aged":0, "Senior citizen":0};
+// This function calculates the average and prints the category
+function formHandler(event) {
     event.preventDefault();
 
     var allAge = document.getElementsByClassName("age");
-    var displayText;
-    var ageSum = 0;
-    var count = 0;
-    var flag=false;
-    var color;
+    var ageSum = 0, count = 0, flag=false, temp="";
 
     for(var i=0; i<allAge.length; i++) {
         if(isNaN(allAge[i].value)===false) {
             ageSum += parseInt(allAge[i].value);
             count+=1;
-            flag=true;
+            var arr = categorizeAge(allAge[i].value);
+            document.getElementById(i+1).innerHTML = `<h4>${arr[0]}</h4>`;
+            document.getElementById(i+1).style.color = arr[1];
         }
         else {
-            flag=false;
+            document.getElementById(i+1).innerHTML = "This is not valid";
+            document.getElementById(i+1).style.color = "red";
         }
     }
+    var average = ageSum/count;
 
-    switch(flag) {
+    document.getElementById("result").innerHTML = `<h3>Average : ${average}</h3>`;
+    document.getElementById("result").style.color = arr[1];
 
-        case true:
-            var average = ageSum/count;
-            average = average.toFixed(2);
-            
-            if(average<18) {
-                displayText = "Minor";
-                color = "pink";
-            }
-            else if(average>17 && average<45) {
-                displayText = "Adults";
-                color = "blue";
-            }
-            else if(average>45 && average<65) {
-                displayText = "Middle Aged";
-                color = "green";
-            }
-            else {
-                displayText = "Senior Citizen";
-                color = "yellow";
-            }
-            break;
-
-        case false:
-            displayText = "Please Enter a valid number";
-            color = "red";
-            break;
+    for(var key of Object.keys(categories)) {
+        temp += "<h4>" + key + " " + categories[key] + "</h4><br>";
     }
-    
-    document.getElementById("result").innerHTML = `<h3>Average : ${average}, ${displayText}</h3>`;
-    document.getElementById("result").style.color = color;
+    document.getElementById("category").innerHTML = temp;
 }
 
-var counter = 1;
-function addFields() {
 
-    var newFields = '<div class="form-group"><label for="age">Age</label><input type="text" class="form-control age" placeholder="Enter age" onkeyup="checkform()" ></div>';
-    var newFieldDiv = document.createElement('div');
-    newFieldDiv.innerHTML = newFields;
-
-    document.getElementById("numberOfRows").innerHTML = `<h4>Number of Rows : ${counter + 1}</h4>`;
-    document.getElementById("extraFields").appendChild(newFieldDiv);
-    counter++;
-    
+// This function categories the age
+function categorizeAge(age) {
+    var displayText, color;
+    if(age<18) {
+        displayText = "Minor";
+        color = "pink";
+        categories["Minor"] += 1;
+    }
+    else if(age>17 && age<45) {
+        displayText = "Adults";
+        color = "blue";
+        categories["Adults"] += 1;
+    }
+    else if(age>44 && age<65) {
+        displayText = "Middle Aged";
+        color = "green";
+        categories["Middle aged"] += 1;
+    }
+    else if(age>64){
+        displayText = "Senior Citizen";
+        color = "yellow";
+        categories["Senior citizen"] += 1;
+    }
+    else {
+        displayText = "Please Enter a valid number";
+        color = "red";
+    }
+    return [displayText, color];
 }
+
+
