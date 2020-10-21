@@ -1,4 +1,19 @@
-function formHandler() {
+function checkform() {
+    var f = document.forms["inputForm"].getElementsByTagName("input");
+    var cansubmit = true;
+
+    for (var i = 0; i < f.length; i++) {
+        console.log(f[i].value);
+        if (f[i].value.length === 0)
+            cansubmit = false;
+    }
+
+    document.getElementById('submitbutton').disabled = !cansubmit;
+}
+
+function formHandler(event) {
+
+    event.preventDefault();
 
     var allAge = document.getElementsByClassName("age");
     var displayText;
@@ -17,7 +32,7 @@ function formHandler() {
             flag=false;
         }
     }
-    
+
     switch(flag) {
 
         case true:
@@ -54,11 +69,11 @@ function formHandler() {
 var counter = 1;
 function addFields() {
 
-    var newFields = '<div class="form-group"><label for="age">Age</label><input type="text" class="form-control age" placeholder="Enter age" ></div>';
+    var newFields = '<div class="form-group"><label for="age">Age</label><input type="text" class="form-control age" placeholder="Enter age" onkeyup="checkform()" ></div>';
     var newFieldDiv = document.createElement('div');
     newFieldDiv.innerHTML = newFields;
 
-    document.getElementById("numberOfRows").innerHTML = `<h3>Number of Rows : ${counter + 1}</h3>`;
+    document.getElementById("numberOfRows").innerHTML = `<h4>Number of Rows : ${counter + 1}</h4>`;
     document.getElementById("extraFields").appendChild(newFieldDiv);
     counter++;
     
