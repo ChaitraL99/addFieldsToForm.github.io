@@ -42,6 +42,7 @@ function formHandler(event) {
         }
     }
     var average = ageSum/count;
+    average = average.toFixed(2);
 
     document.getElementById("result").innerHTML = `<h3>Average : ${average}</h3>`;
     document.getElementById("result").style.color = arr[1];
