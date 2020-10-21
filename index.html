@@ -10,23 +10,23 @@
     <body>
         <div class="container">
 
-            <div id="numberOfRows"><h4>Number of Rows : 1</h4></div><br>
-
             <form id="inputForm" name="inputForm">
+                <h4 id="person">Person : 1</h4>
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name">Name</label><br>
                     <input type="text" class="form-control" placeholder="Enter name" id="name" onkeyup="checkform()" />
                 </div>
                 <div class="form-group">
-                    <label for="age">Age</label>
-                    <input type="text" class="form-control age" placeholder="Enter age" onkeyup="checkform()" />
-                </div>
+                    <label for="age">Age</label><br>
+                    <input type="text" class="form-control age" placeholder="Enter age" onkeyup="checkform()" /><span id="1"></span>
+                </div><br>
                 <div id="extraFields"></div>
                 <button class="btn btn-primary" type="button" onclick="addFields()">Add Fields</button>
                 <input type="submit" class="btn btn-primary" onclick="formHandler(event)" id="submitbutton" value="Submit" disabled/>
             </form>
 
-            <div id="result"></div>
+            <div id="result"></div><br>
+            <div id="category"></div>
 
         </div>
 
@@ -36,4 +36,3 @@
 
     </body>
 </html>
-
