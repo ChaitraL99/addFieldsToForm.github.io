@@ -3,3 +3,13 @@
   top: 10%;
   left: 10%;
 }
+.form-control {
+  width: 50%;
+}
+.form-group input {
+  display: inline;
+}
+.form-group span {
+  float: right;
+  margin-right: 30%;
+}
